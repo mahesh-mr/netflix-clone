@@ -1,20 +1,24 @@
 // ignore_for_file: prefer_const_declarations, non_constant_identifier_names, unnecessary_const
 
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:netflix/api/controller/controller.dart';
 import 'package:netflix/core/colors/colors.dart';
 
 import 'package:netflix/core/size/size.dart';
 import 'package:netflix/presentation/search/widgets/title.dart';
 import 'package:netflix/presentation/widgets/main_title.dart';
 
-final images =
-    "https://www.themoviedb.org/t/p/w250_and_h141_face/zsEgpTyXTsiECPo08P9qhO6qiJ.jpg";
+
 
 class SearchIdle extends StatelessWidget {
-  const SearchIdle({Key? key}) : super(key: key);
+  SearchIdle({Key? key}) : super(key: key);
+
+  final controller = Get.put(Searchcontroller());
 
   @override
   Widget build(BuildContext context) {
+     final Screenwidth = MediaQuery.of(context).size.width;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -22,25 +26,13 @@ class SearchIdle extends StatelessWidget {
         height10,
         Expanded(
           child: ListView.separated(
+
               shrinkWrap: true,
-              itemBuilder: (context, index) => const TopSearches(),
-              separatorBuilder: (context, index) => height10,
-              itemCount: 15),
-        ),
-      ],
-    );
-  }
-}
-
-
-
-class TopSearches extends StatelessWidget {
-  const TopSearches({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final Screenwidth = MediaQuery.of(context).size.width;
-    return Row(
+                separatorBuilder: (context, index) => height10,
+              itemCount: controller.datalist.length,
+              itemBuilder: (context, index) {
+                final data = controller.datalist[index];
+                return Row(
       children: [
         SizedBox(
           width: Screenwidth * .35,
@@ -49,12 +41,12 @@ class TopSearches extends StatelessWidget {
             borderRadius: BorderRadius.circular(10), // Image border
             child: SizedBox.fromSize(
               size: const Size.fromRadius(10), // Image radius
-              child: Image.network(images, fit: BoxFit.cover),
+              child: Image.network("http://image.tmdb.org/t/p/w500"+data.image.toString(), fit: BoxFit.cover),
             ),
           ),
         ),
         width20,
-        const Text(
+         Text(
           "Movie Name",
           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
         ),
@@ -66,5 +58,15 @@ class TopSearches extends StatelessWidget {
         )
       ],
     );
+              }
+            
+        ),
+      )  
+      ],
+    );
   }
 }
+
+
+
+

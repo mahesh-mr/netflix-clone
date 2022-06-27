@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:netflix/api/controller/controller.dart';
+import 'package:netflix/api/service/service.dart';
 
 import 'package:netflix/core/colors/colors.dart';
 import 'package:netflix/core/font/font.dart';
@@ -18,6 +20,10 @@ class HomeScreen extends StatelessWidget {
   // final controller = Get.put(CustomHomecontroller());
   @override
   Widget build(BuildContext context) {
+
+  HomeController
+   homeController = Get.put(HomeController());
+
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: SafeArea(
@@ -36,16 +42,21 @@ class HomeScreen extends StatelessWidget {
               },
               child: Stack(
                 children: [
-                  ListView(
-                    // ignore: prefer_const_literals_to_create_immutables
-                    children: [
-                      const BagroundCard(),
-                       MainCardTitle(title: "Released in the Past Year" ),
-                       MainCardTitle(title: "Trending Now"),
-                       NumberTitleCard(),
-                       MainCardTitle(title: "Tens Dramas"),
-                       MainCardTitle(title: "South Indian Cinema"),
-                    ],
+                  Builder(
+                    builder: (context) {
+                      print(homeController.trending);
+                      return ListView(
+                        // ignore: prefer_const_literals_to_create_immutables
+                        children: [
+                           BagroundCard(),
+                            MainCardTitle(title: "Released in the Past Year",items: homeController.released,),
+                           MainCardTitle(title: "Trending Now",items: homeController.trending,),
+                           NumberTitleCard(),
+                          //  MainCardTitle(title: "Tens Dramas"),
+                          //  MainCardTitle(title: "South Indian Cinema"),
+                        ],
+                      );
+                    }
                   ),
                   scrollNotifier.value == true
                       ? AnimatedContainer(
