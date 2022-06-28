@@ -1,12 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/get_core.dart';
+import 'package:get/get_instance/get_instance.dart';
+import 'package:netflix/api/controller/controller.dart';
 import 'package:netflix/core/colors/colors.dart';
 import 'package:netflix/core/size/size.dart';
 import 'package:netflix/presentation/search/widgets/search_title.dart';
 import 'package:netflix/presentation/search/widgets/searchidle.dart';
 
+import '../../api/search.dart';
+
 class Search extends StatelessWidget {
-  const Search({ Key? key }) : super(key: key);
+   Search({ Key? key }) : super(key: key);
+ HomeController  homeController= Get.put(HomeController());
+  final controller = Get.put(SearchController());
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +27,14 @@ class Search extends StatelessWidget {
             children: [
 
               CupertinoSearchTextField(
+                onChanged: (value){
+                  controller.putdata(value.toString());
+                  
+            
+                  
+
+                },
+                
                 backgroundColor: Colors.grey.withOpacity(.3),
                style: TextStyle(color: grey),
               
@@ -27,8 +43,15 @@ class Search extends StatelessWidget {
 
               ),
              height10,
-           Expanded(child: SearchIdle() )
-            // Expanded(child:SearchResult())
+          
+                Obx(
+                  ()=>
+                   Expanded(child:controller.data.isEmpty?SearchIdle(items: homeController.trending):SearchResult()))
+              //  :SearchIdle(iems: homeController.trending)
+              //  Expanded(child: SearchResult())
+
+       
+            // Expanded(child:SearchResult()),
             ],
           ),
         )

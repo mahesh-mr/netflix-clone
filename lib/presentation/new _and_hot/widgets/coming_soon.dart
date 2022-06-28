@@ -4,24 +4,25 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:netflix/api/controller/controller.dart';
-import 'package:netflix/api/controller/hotandnew/commingsoon/downlods_controller.dart';
+import 'package:netflix/api/model/comming.dart';
 import 'package:netflix/core/font/font.dart';
 import 'package:netflix/core/size/size.dart';
 import 'package:netflix/presentation/home/custom_buttons.dart';
 
 class ComingSoon extends StatelessWidget {
-  ComingSoon({Key? key}) : super(key: key);
+  List<DownloadsModel> items ;
+  ComingSoon({Key? key,required this.items}) : super(key: key);
 
-  final controller = Get.put(DownloadController());
+  final controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Obx(
-      () => ListView.builder(
-          itemCount: controller.Datalist.length,
+    return 
+      ListView.builder(
+          itemCount:items.length ,
           itemBuilder: (BuildContext context, index) {
-            final datas = controller.Datalist[index];
+            final data = items[index];
             return Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: Row(
@@ -60,7 +61,7 @@ class ComingSoon extends StatelessWidget {
                                 width: double.infinity,
                                 height: 200,
                                 child: Image.network(
-                                    baseImage + datas.image.toString(),
+                                    baseImage + data.image.toString(),
                                     fit: BoxFit.cover),
                               ),
                               Positioned(
@@ -85,7 +86,7 @@ class ComingSoon extends StatelessWidget {
                                   width: 200,
                                   height: 100,
                                   child: Text(
-                                    datas.title.toString(),
+                                    data.title.toString(),
                                     // overflow: TextOverflow.ellipsis,
                                     // "Evil",
                                     style: const TextStyle(
@@ -109,7 +110,7 @@ class ComingSoon extends StatelessWidget {
                           ),
                           height10,
                           Text(
-                            datas.releasedate.toString(),
+                            data.releasedate.toString(),
                             // "Coming on Friday",
                             style: const TextStyle(fontWeight: FontWeight.w900),
                           ),
@@ -117,13 +118,13 @@ class ComingSoon extends StatelessWidget {
                           // netflixlog(),
                           height10,
                           Text(
-                            datas.title.toString(),
+                            data.title.toString(),
                             style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.w900),
                           ),
                           height10,
                           Text(
-                            datas.overview.toString(),
+                            data.overview.toString(),
                             maxLines: 5,
                             overflow: TextOverflow.ellipsis,
                           )
@@ -134,8 +135,8 @@ class ComingSoon extends StatelessWidget {
                 ));
           }
           // ComingSoon()
-          ),
-    );
+          );
+    
   }
 
   Container netflixlog() {

@@ -1,6 +1,9 @@
 // ignore: unnecessary_import
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/get_core.dart';
+import 'package:get/get_instance/get_instance.dart';
+import 'package:netflix/api/controller/controller.dart';
 import 'package:netflix/core/colors/colors.dart';
 import 'package:netflix/core/font/font.dart';
 import 'package:netflix/core/size/size.dart';
@@ -9,6 +12,9 @@ import 'package:netflix/presentation/new%20_and_hot/widgets/everyonce_watch.dart
 
 class NewAndHot extends StatelessWidget {
   NewAndHot({Key? key}) : super(key: key);
+
+   HomeController
+   homeController= Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +62,8 @@ class NewAndHot extends StatelessWidget {
                   ]),
             )),
         body: TabBarView(children: [
-          ComingSoon(),
-          EveryonesWatch(),
+          ComingSoon(items: homeController.trending),
+          EveryonesWatch(items:homeController.released ),
         ]),
       ),
     );

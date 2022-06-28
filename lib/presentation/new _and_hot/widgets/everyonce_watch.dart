@@ -3,22 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:netflix/api/controller/controller.dart';
-import 'package:netflix/api/controller/hotandnew/everyoce/everyonce.dart';
+import 'package:netflix/api/model/comming.dart';
 import 'package:netflix/core/colors/colors.dart';
 import 'package:netflix/core/size/size.dart';
 import 'package:netflix/presentation/home/custom_buttons.dart';
 
 class EveryonesWatch extends StatelessWidget {
-  EveryonesWatch({Key? key}) : super(key: key);
+  List<DownloadsModel> items;
+  EveryonesWatch({Key? key, required this.items}) : super(key: key);
 
-  final controller = Get.put(EveryControll());
+  final controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => ListView.builder(
-        itemCount: controller.dataList.length,
+    return ListView.builder(
+        itemCount: items.length,
         itemBuilder: (BuildContext context, index) {
-          final datas = controller.dataList[index];
+          final data = items[index];
           return Padding(
             padding: const EdgeInsets.only(top: 30),
             child: Column(
@@ -27,13 +28,13 @@ class EveryonesWatch extends StatelessWidget {
                 height10,
 
                 Text(
-                  datas.title.toString(),
+                  data.title.toString(),
                   style: const TextStyle(
                       fontSize: 20, fontWeight: FontWeight.w900),
                 ),
                 height10,
                 Text(
-                  datas.overview.toString(),
+                  data.overview.toString(),
                   style: const TextStyle(fontSize: 14),
                   maxLines: 5,
                 ),
@@ -43,8 +44,12 @@ class EveryonesWatch extends StatelessWidget {
                     SizedBox(
                       width: double.infinity,
                       height: 250,
-                      child: Image.network(baseImage + datas.image.toString(),
-                          fit: BoxFit.cover),
+                      child: data.image == null
+                          ? const Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : Image.network(baseImage + data.image.toString(),
+                              fit: BoxFit.cover),
                     ),
                     Positioned(
                         right: 10,
@@ -73,7 +78,7 @@ class EveryonesWatch extends StatelessWidget {
                           width: 200,
                           height: 100,
                           child: Text(
-                            datas.title.toString(),
+                            data.title.toString(),
                             // ignore: prefer_const_constructors
                             style: TextStyle(
                                 color: white1,
@@ -94,6 +99,6 @@ class EveryonesWatch extends StatelessWidget {
               ],
             ),
           );
-        }));
+        });
   }
 }

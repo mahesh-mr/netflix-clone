@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:netflix/api/controller/controller.dart';
-import 'package:netflix/api/service/service.dart';
-
 import 'package:netflix/core/colors/colors.dart';
 import 'package:netflix/core/font/font.dart';
 import 'package:netflix/core/size/size.dart';
@@ -44,14 +42,17 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Builder(
                     builder: (context) {
-                      print(homeController.trending);
+                     
                       return ListView(
                         // ignore: prefer_const_literals_to_create_immutables
                         children: [
                            BagroundCard(),
                             MainCardTitle(title: "Released in the Past Year",items: homeController.released,),
                            MainCardTitle(title: "Trending Now",items: homeController.trending,),
-                           NumberTitleCard(),
+                           NumberTitleCard(items: homeController.tvmovie),
+                           MainCardTitle(title: "Released in the Past Year",items: homeController. tvaravingtoay),
+                           MainCardTitle(title: "Trending Now",items: homeController.newmovies),
+                          
                           //  MainCardTitle(title: "Tens Dramas"),
                           //  MainCardTitle(title: "South Indian Cinema"),
                         ],

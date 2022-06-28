@@ -19,7 +19,7 @@ class MainCardTitle extends StatelessWidget {
    
     Key? key,
   }) : super(key: key);
-  final controller = Get.put(DownloadController());
+  // final controller = Get.put(DownloadController());
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class MainCardTitle extends StatelessWidget {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: 
-          List.generate(15, (index){
+          List.generate(items.length, (index){
          final   data = items[index];
             return  Padding(
               // ignore: prefer_const_constructors
