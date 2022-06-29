@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors_in_immutables, unnecessary_null_comparison
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
@@ -8,19 +10,17 @@ import 'package:netflix/core/size/size.dart';
 import 'package:netflix/presentation/home/baground_card.dart';
 import 'package:netflix/presentation/widgets/main_card_title.dart';
 import 'package:netflix/presentation/widgets/numbrt_title_card.dart';
+import 'package:netflix/presentation/widgets/relesed_year.dart';
 
-ValueNotifier<bool> scrollNotifier = ValueNotifier(true );
+ValueNotifier<bool> scrollNotifier = ValueNotifier(true);
 
 class HomeScreen extends StatelessWidget {
-  
-   HomeScreen({Key? key}) : super(key: key);
-  
+  HomeScreen({Key? key}) : super(key: key);
+
   // final controller = Get.put(CustomHomecontroller());
   @override
   Widget build(BuildContext context) {
-
-  HomeController
-   homeController = Get.put(HomeController());
+    HomeController homeController = Get.put(HomeController());
 
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -40,28 +40,50 @@ class HomeScreen extends StatelessWidget {
               },
               child: Stack(
                 children: [
-                  Builder(
-                    builder: (context) {
-                     
-                      return ListView(
-                        // ignore: prefer_const_literals_to_create_immutables
-                        children: [
-                           BagroundCard(),
-                            MainCardTitle(title: "Released in the Past Year",items: homeController.released,),
-                           MainCardTitle(title: "Trending Now",items: homeController.trending,),
-                           NumberTitleCard(items: homeController.tvmovie),
-                           MainCardTitle(title: "Released in the Past Year",items: homeController. tvaravingtoay),
-                           MainCardTitle(title: "Trending Now",items: homeController.newmovies),
-                          
-                          //  MainCardTitle(title: "Tens Dramas"),
-                          //  MainCardTitle(title: "South Indian Cinema"),
-                        ],
-                      );
-                    }
-                  ),
+                  Builder(builder: (context) {
+                    return ListView(
+                      // ignore: prefer_const_literals_to_create_immutables
+                      children: [
+                        // ignore: prefer_const_constructors
+                        BagroundCard(),
+
+                        homeController.poppuler == null
+                            ? const CircularProgressIndicator()
+                            : RelesedHome(
+                                title: "Continue Watching for Nivea C M",
+                                items: homeController.poppuler),
+                        homeController.tvaravingtoay == null
+                            ? const CircularProgressIndicator()
+                            : MainCardTitle(
+                                title: "Released in the Past Year",
+                                items: homeController.released,
+                              ),
+                        homeController.trending == null
+                            ? const CircularProgressIndicator()
+                            : MainCardTitle(
+                                title: "Trending Now",
+                                items: homeController.trending,
+                              ),
+                        NumberTitleCard(items: homeController.tvmovie),
+                        homeController.tvaravingtoay == null
+                            ? const CircularProgressIndicator()
+                            : MainCardTitle(
+                                title: "Released in the Past Year",
+                                items: homeController.tvaravingtoay),
+                        homeController.newmovies == null
+                            ? const CircularProgressIndicator()
+                            : MainCardTitle(
+                                title: "Trending Now",
+                                items: homeController.newmovies),
+
+                        //  MainCardTitle(title: "Tens Dramas"),
+                        //  MainCardTitle(title: "South Indian Cinema"),
+                      ],
+                    );
+                  }),
                   scrollNotifier.value == true
                       ? AnimatedContainer(
-                        duration: Duration(microseconds: 2000),
+                          duration: const Duration(microseconds: 2000),
                           width: double.infinity,
                           height: size.height * .11,
                           color: Colors.black.withOpacity(.5),
@@ -96,18 +118,29 @@ class HomeScreen extends StatelessWidget {
                                     MainAxisAlignment.spaceEvenly,
                                 // ignore: prefer_const_literals_to_create_immutables
                                 children: [
-                                   Text(
+                                  Text(
                                     "Tv Shows",
                                     style: baestext,
                                   ),
-                                   Text(
-                                    "Movies",
-                                    style:baestext ,
-                                    ),
-                                  
                                   Text(
-                                    "Categories",
-                                    style:baestext
+                                    "Movies",
+                                    style: baestext,
+                                  ),
+                                  LimitedBox(
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        _showCategoriesList(context);
+                                      },
+                                      child: Row(children: const [
+                                        Text("Categories",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500)),
+                                        Icon(
+                                          Icons.arrow_drop_down_rounded,
+                                          color: white1,
+                                        )
+                                      ]),
+                                    ),
                                   )
                                 ],
                               )
@@ -122,3 +155,105 @@ class HomeScreen extends StatelessWidget {
     ));
   }
 }
+
+Future<Object?> _showCategoriesList(BuildContext context) {
+  return showGeneralDialog(
+    context: context,
+    pageBuilder: (context, animation, secondaryAnimation) => Scaffold(
+      backgroundColor: Colors.black.withOpacity(.8),
+      body: Column(
+        children: const [
+          SizedBox(height: 50),
+          CategoriesListWidget(),
+          SizedBox(height: 20),
+          ClossButtonWidget(),
+          SizedBox(height: 30)
+        ],
+      ),
+    ),
+  );
+}
+
+class CategoriesListWidget extends StatelessWidget {
+  const CategoriesListWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: ListView.separated(
+        shrinkWrap: true,
+        itemBuilder: (BuildContext _context, int _index) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                homeCategories[_index],
+                // style: GoogleFonts.rubik(
+                //   fontSize: 18,
+                //   color: Colors.grey,
+                //   fontWeight: FontWeight.w500,
+                // ),
+              ),
+            ],
+          );
+        },
+        separatorBuilder: (BuildContext _cx, int _indx) {
+          return const SizedBox(height: 35);
+        },
+        itemCount: 20,
+      ),
+    );
+  }
+}
+
+class ClossButtonWidget extends StatelessWidget {
+  const ClossButtonWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return CircleAvatar(
+      child: IconButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        icon: const Icon(Icons.close),
+        color: Colors.black,
+      ),
+      backgroundColor: Colors.white,
+      radius: 25,
+    );
+  }
+}
+
+List<String> homeCategories = [
+  'Home',
+  'My List',
+  'Available for Download',
+  'Hindi',
+  'Tamil',
+  'Punjabi',
+  'Telugu',
+  'Malayalam',
+  'Marathi',
+  'Bengali',
+  'English',
+  'Action',
+  'Anime',
+  'Award Winners',
+  'Biographical',
+  'Blockbusters',
+  'Bollywood',
+  'Children & Family',
+  'Comedies',
+  'Documentaries',
+  'Dramas',
+  'Fantasy',
+  'Hollywood',
+  'Hurror',
+  'International',
+  'Indian'
+];

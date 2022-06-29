@@ -98,13 +98,19 @@ class ComingSoon extends StatelessWidget {
                                 ),
                               ),
                               const Spacer(),
-                              const CustomButton(
-                                icons: Icons.notifications_none_outlined,
-                                title: 'Remind Me',
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 50),
+                                child: const CustomButton(
+                                  icons: Icons.notifications_none_outlined,
+                                  title: 'Remind Me',
+                                ),
                               ),
                               height20,
-                              const CustomButton(
-                                  icons: CupertinoIcons.info, title: "Info"),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 50),
+                                child: const CustomButton(
+                                    icons: CupertinoIcons.info, title: "Info"),
+                              ),
                               height20
                             ],
                           ),

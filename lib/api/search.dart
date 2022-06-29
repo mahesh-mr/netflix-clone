@@ -34,6 +34,7 @@ class SearchService {
 
 
 
+
   List<SearchModel> modelClassData = [];
 
   Future<List<SearchModel>> postMethod(query) async {
@@ -59,6 +60,8 @@ class SearchService {
       return [];
     }
   }
+
+
 }
 
 class SearchController extends GetxController {
@@ -74,4 +77,6 @@ class SearchController extends GetxController {
     putdata('');
     super.onInit();
   }
-}
+
+  }
+

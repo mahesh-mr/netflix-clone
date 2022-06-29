@@ -89,11 +89,20 @@ class EveryonesWatch extends StatelessWidget {
                       ],
                     ),
                     const Spacer(),
-                    const CustomButton(
-                        icons: CupertinoIcons.paperplane, title: "Share"),
-                    const CustomButton(icons: Icons.add, title: "My List"),
-                    const CustomButton(
-                        icons: CupertinoIcons.play_fill, title: "Play"),
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 50),
+                      child: CustomButton(
+                          icons: CupertinoIcons.paperplane, title: "Share"),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 50),
+                      child:  CustomButton(icons: Icons.add, title: "My List"),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 50),
+                      child: CustomButton(
+                          icons: CupertinoIcons.play_fill, title: "Play"),
+                    ),
                   ],
                 )
               ],

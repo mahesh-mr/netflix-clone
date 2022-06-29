@@ -14,5 +14,6 @@ TextStyle baestext =const TextStyle(
 //border radious
 final BorderRadius r20 = BorderRadius.circular(70);
 //images------------------------------
+
 const homeImage =
     "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/nJUHX3XL1jMkk8honUZnUmudFb9.jpg";

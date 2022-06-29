@@ -69,66 +69,71 @@ class Section2 extends StatelessWidget {
   Section2({Key? key}) : super(key: key);
   // final controller = Get.put(DownloadController());
 
-  final List imageList = [
-    "https://www.themoviedb.org/t/p/w220_and_h330_face/lFhxNXEK0UpXXqSbhba83Zhl2uk.jpg",
-    "https://www.themoviedb.org/t/p/w220_and_h330_face/bDUcthW9hh4kA4XDi4muJk4DJZc.jpg",
-    "https://www.themoviedb.org/t/p/w220_and_h330_face/ekZobS8isE6mA53RAiGDG93hBxL.jpg",
+  final List imagepath = [
+    "9Gtg2DzBhmYamXBS1hKAhiwbBKS.jpg",
+    "bnfTPTTytrZZ9Aw6hoOQdojiaKo.jpg",
+    "5TdKvZimLSJHPQW8t3ctlsusnmH.jpg",
   ];
+  final imageurl="https://www.themoviedb.org/t/p/w600";
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     // final datas = controller.Datalist[]
 
-    return Column(children: [
-      const Text(
-        "Introducing Downlods for you",
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: 24, fontWeight: FontWeight.w900, letterSpacing: 1),
-      ),
-      height10,
-      const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 23),
-          child: const Text(
-            "We'll download a personalized selection of movies and shows for you, so there is always something to watch on your device",
-            textAlign: TextAlign.center,
-            style: TextStyle(color: ngray),
-          )),
-      SizedBox(
-          width: size.width,
-          height: size.width * .65,
-          // color: white1,
-          child: Stack(alignment: Alignment.center, children: [
-            CircleAvatar(
-              radius: size.width * 0.31,
-              backgroundColor: Colors.grey.withOpacity(.5),
-            ),
-            // Obx(()=>
-            DownloadsImageWidgets(
-              imageList: imageList[1],
-              margin: const EdgeInsets.only(left: 180),
-              angle: 14,
-              size: Size(size.width * .30, size.width * 0.45),
-            ),
-            //  ),
-            DownloadsImageWidgets(
-              imageList: imageList[2],
-              margin: const EdgeInsets.only(
-                right: 180,
-              ),
-              angle: -14,
-              size: Size(size.width * .30, size.width * 0.45),
-            ),
-            DownloadsImageWidgets(
-              imageList: imageList[0],
-              margin: const EdgeInsets.only(
-                top: 15,
-              ),
-              size: Size(size.width * .32, size.width * 0.50),
-            )
-          ]))
-    ]);
+    return Center(
+      child: Column(children: [
+        const Text(
+          "Introducing Downlods for you",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 24, fontWeight: FontWeight.w900, letterSpacing: 1),
+        ),
+        height10,
+        const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 23),
+            child: const Text(
+              "We'll download a personalized selection of movies and shows for you, so there is always something to watch on your device",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: ngray),
+            )),
+        Center(
+          child: SizedBox(
+              width: size.width,
+              height: size.width * .65,
+              // color: white1,
+              child: Stack(alignment: Alignment.center, children: [
+                CircleAvatar(
+                  radius: size.width * 0.31,
+                  backgroundColor: Colors.grey.withOpacity(.5),
+                ),
+                // Obx(()=>
+                DownloadsImageWidgets(
+                  imageList:baseImage+imagepath[2],
+                  margin: const EdgeInsets.only(left: 180),
+                  angle: 15,
+                  size: Size(size.width * .30, size.width * 0.45),
+                ),
+                //  ),
+                DownloadsImageWidgets(
+                  imageList:baseImage+imagepath[1],
+                  margin: const EdgeInsets.only(
+                    right: 180,
+                  ),
+                  angle: -15,
+                  size: Size(size.width * .30, size.width * 0.45),
+                ),
+                DownloadsImageWidgets(
+                  imageList:baseImage+imagepath[0],
+                  margin: const EdgeInsets.only(
+                    top: 16,
+                  ),
+                  size: Size(size.width * .32, size.width * 0.52),
+                )
+              ])),
+        )
+      ]),
+    );
   }
 }
 
@@ -200,7 +205,7 @@ class DownloadsImageWidgets extends StatelessWidget {
         width: size.width,
         height: size.height,
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(10), // Image border
+          borderRadius: BorderRadius.circular(7), // Image border
           child: SizedBox.fromSize(
             size: const Size.fromRadius(10), // Image radius
             child: Image.network(imageList, fit: BoxFit.cover),

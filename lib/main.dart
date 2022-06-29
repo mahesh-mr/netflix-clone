@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netflix/core/colors/colors.dart';
 import 'package:netflix/presentation/main_page/screen_main_page.dart';
+import 'package:netflix/splash.dart';
 
 void main(List<String> args) {
   runApp(const MyApp());
@@ -28,7 +29,11 @@ class MyApp extends StatelessWidget {
                 color: Colors.white,
               ))),
       debugShowCheckedModeBanner: false,
-      home: ScreenMainPage(),
+     initialRoute: "/splash",
+     getPages: [
+      GetPage(name: '/splash', page: ()=>SplashScreen()),
+      
+     ],
     );
   }
 }

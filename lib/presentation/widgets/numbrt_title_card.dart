@@ -23,7 +23,7 @@ class NumberTitleCard extends StatelessWidget {
           maxHeight: 200,
           child: ListView(
               scrollDirection: Axis.horizontal,
-              children: List.generate(items.length, (index) {
+              children: List.generate(10, (index) {
                 final data = items[index];
                 return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 6),

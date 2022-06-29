@@ -12,12 +12,13 @@ List urls= [
   "https://api.themoviedb.org/3/movie/top_rated?api_key=1fe4508f3dda5e1b9e2aacbf855a7f70&language=en-US&page=1",
   "https://api.themoviedb.org/3/tv/popular?api_key=1fe4508f3dda5e1b9e2aacbf855a7f70&language=en-US&page=1",
     "https://api.themoviedb.org/3/tv/top_rated?api_key=1fe4508f3dda5e1b9e2aacbf855a7f70&language=en-US&page=1",
+    
 
  
 ];
 class DownloadService extends GetxController{
-  Future<List<DownloadsModel>?> getMethod(String urls,) async {
-    var respose = await http.get(Uri.parse(urls));
+  Future<List<DownloadsModel>?> getMethod(String url,) async {
+    var respose = await http.get(Uri.parse(url));
     if (respose.statusCode == 200) {
       Map<String, dynamic> body = await json.decode(respose.body);
 

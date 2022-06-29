@@ -10,6 +10,7 @@ class HomeController extends GetxController {
   List<DownloadsModel> newmovies = [];
   List<DownloadsModel> poppuler = [];
   List<DownloadsModel> tvmovie = [];
+  List<DownloadsModel> toprelese= [];
 
   var Loding = true.obs;
 

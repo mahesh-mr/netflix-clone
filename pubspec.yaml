@@ -28,8 +28,8 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   bordered_text: ^2.0.0
-
   cupertino_icons: ^1.0.2
+  delayed_display: ^2.0.0
   flutter:
     sdk: flutter
   font_awesome_flutter: ^10.1.0
@@ -58,6 +58,7 @@ flutter:
   assets:
     - assets/netflix.png
     - assets/lognet.png
+    - assets/netflixtext.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
